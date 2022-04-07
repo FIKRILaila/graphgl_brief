@@ -1,26 +1,22 @@
-const { ApolloServer } = require('apollo-server');
-const mongoose = require("mongoose")
-const typeDefs = require('./schema');
-const resolvers = require('./resolvers');
+const { ApolloServer } = require("apollo-server-express");
+const { makeExecutableSchema } = require("@graphql-tools/schema");
+const { typeDefs,resolvers } = require("./graphql");
+const express =require("express");
+const dbConnection  = require("./database/connection");
+
 require("dotenv").config()
 
-const server = new ApolloServer({
-  typeDefs,
-  resolvers,
-});
-
-const DB = process.env.DB_HOST.replace('<PASSWORD>', process.env.DATABASE_PASSWORD);
-mongoose.connect(DB, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-}).then(() => {
-    console.log("connected");
-})
-server.listen().then(({url,port}) =>{
-   console.log(`
-       🚀  Server is running
-       🔉  Listening on port ${port}
-       📭  Query at ${url}
-     `);
- })
-
+ const app = express();
+ async function startServer() {
+   const apolloServer = new ApolloServer({
+     schema: makeExecutableSchema({ typeDefs, resolvers })
+   });
+   await apolloServer.start();
+   await dbConnection();
+   apolloServer.applyMiddleware({ app, path: "/graphql" });
+ }
+ startServer();
+ 
+  app.listen(process.env.PORT || 4000, () => {
+     console.log(`Server Running here 👉 https://localhost:${process.env.PORT || 4000}`);    
+  });

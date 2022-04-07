@@ -1,0 +1,32 @@
+
+type Query{
+    category(id:ID!):Category!
+    categories:[Category!]!
+},
+type Mutation {
+    addCategory(Input:addCategoryInput) : categoryResponse
+    deleteCategory(id : ID!) :categoryResponse
+    updateCategory(Input:updateCategoryInput): categoryResponse
+}
+input addCategoryInput{
+    name : String!
+    description : String!
+}
+
+input updateCategoryInput{
+    id : ID!
+    name : String
+    description : String
+}
+type categoryResponse{
+    code: Int!
+    success: Boolean!
+    message: String!
+    category: Category
+}
+type Category{
+    id : ID!
+    name : String!
+    description : String!
+    products : [Product!]
+}
