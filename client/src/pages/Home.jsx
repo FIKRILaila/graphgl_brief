@@ -4,7 +4,7 @@ import { Products } from '../components/Products'
 
 export function Home() {
   return (
-    <div className="container d-flex justify-content-between">
+    <div className="container col-md-12">
         <Categories/>
         <Products/>
     </div>

@@ -10,8 +10,8 @@ type Mutation {
 input addProductInput{
     name : String!
     description : String!
-    quantity :Int!
-    price : Float!
+    quantity :String!
+    price : String!
     onSale : Boolean!
     categoryId : ID!
 }
@@ -19,8 +19,8 @@ input updateProductInput{
     id : ID!
     name : String
     description : String
-    quantity :Int
-    price : Float
+    quantity :String
+    price : String
     onSale : Boolean
     categoryId : ID
 }
