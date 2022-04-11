@@ -7,6 +7,7 @@ const dbConnection  = require("./database/connection");
 require("dotenv").config()
 
  const app = express();
+ 
  async function startServer() {
    const apolloServer = new ApolloServer({
      schema: makeExecutableSchema({ typeDefs, resolvers })
