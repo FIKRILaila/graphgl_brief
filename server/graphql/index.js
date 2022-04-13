@@ -7,6 +7,7 @@ const { mergeTypeDefs } = require("@graphql-tools/merge");
 const resolversPath = join(__dirname, './**/resolver.*');
 
 const resolversArray = loadFilesSync(resolversPath);
+// const resolversArray = loadFilesSync(resolversPath);
 const resolvers = mergeResolvers(resolversArray);
 
 //Load all typeDefs
